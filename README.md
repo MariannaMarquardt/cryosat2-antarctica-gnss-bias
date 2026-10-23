@@ -4,6 +4,25 @@ CryoSat-2 product names used here: **SWATH is CT-Swath, POCA is CT-LI, and MISWI
 
 These are the paper-specific working copies. 
 
+## Reproduce the manuscript figures
+
+The review package includes the processed inputs needed by the bias and figure notebook. The full raw-data workflow is not required to reproduce those figures.
+
+From the `manuscript_scripts` folder, create the Python environment and open the notebook:
+
+```sh
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+jupyter lab cryosat2_bias_calculations_and_figures.ipynb
+```
+
+In Jupyter, choose **Restart Kernel and Run All**. Run it with `manuscript_scripts` as the working directory so the relative `data/` paths resolve. The notebook reads the kriging results and 29 corrected GNSS time series, calculates the bias table, then generates the bias figures and the LA02 POCA interpolation example. Generated figures and intermediate tables go under `outputs/`, which is excluded from Git so it can be recreated locally.
+
+The expected precomputed bias table is retained in `data/` for reference. The notebook uses the newly calculated bias output during a top-to-bottom run. `data/interpflow/` contains the five inputs needed for the LA02 POCA example, including a small REMA clip instead of the full mosaic.
+
+Other notebooks and scripts document upstream data acquisition and processing. Several retain paths specific to the original analysis computer; those steps require their listed source data and path updates and are not necessary for reproducing the bundled figures.
+
 ## Workflow
 
 1. `download_cryosat2_poca_swath_2010_2026.ipynb` downloads Antarctica POCA and SWATH point products for 2010–2026. CryoSat-2 availability begins in April 2010.
@@ -32,22 +51,4 @@ The processing scripts retain the paths used on the analysis computer. If runnin
 - `cryosat2_bias_calculations_and_figures.ipynb`: the kriging-results CSV, the bundled corrected GNSS CSV folder, and the destination for bias tables and figures.
 - `download_cryosat2_poca_swath_2010_2026.ipynb`: the local destination for downloaded POCA and SWATH data.
 
-## Reproduce the manuscript figures
-
-The review package includes the processed inputs needed by the bias and figure notebook. The full raw-data workflow is not required to reproduce those figures.
-
-From the `manuscript_scripts` folder, create the Python environment and open the notebook:
-
-```sh
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements.txt
-jupyter lab cryosat2_bias_calculations_and_figures.ipynb
-```
-
-In Jupyter, choose **Restart Kernel and Run All**. Run it with `manuscript_scripts` as the working directory so the relative `data/` paths resolve. The notebook reads the kriging results and 29 corrected GNSS time series, calculates the bias table, then generates the bias figures and the LA02 POCA interpolation example. Generated figures and intermediate tables go under `outputs/`, which is excluded from Git so it can be recreated locally.
-
-The expected precomputed bias table is retained in `data/` for reference. The notebook uses the newly calculated bias output during a top-to-bottom run. `data/interpflow/` contains the five inputs needed for the LA02 POCA example, including a small REMA clip instead of the full mosaic.
-
-Other notebooks and scripts document upstream data acquisition and processing. Several retain paths specific to the original analysis computer; those steps require their listed source data and path updates and are not necessary for reproducing the bundled figures.
 
