@@ -1,0 +1,9 @@
+ipykernel
+jupyterlab
+matplotlib
+numpy
+pandas
+rasterio
+cartopy
+geopandas
+matplotlib-scalebar
