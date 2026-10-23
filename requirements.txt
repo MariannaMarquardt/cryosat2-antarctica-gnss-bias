@@ -7,3 +7,5 @@ rasterio
 cartopy
 geopandas
 matplotlib-scalebar
+requests
+requests-toolbelt
